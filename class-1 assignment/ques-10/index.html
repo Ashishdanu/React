@@ -54,18 +54,29 @@
     font-size: 1.5em;
     margin-top: 20px;
     margin-bottom: 10px;
-    color: #333;
+    color: #b5d33b;
+    
   }
-
+  .featuresDetails {
+    display: flex;
+  
+  }
+  .featuresDetails > div {
+    margin: 10px;
+    width: 50%; }
   pre {
-    display: inline;
-    background-color: #f0f0f0;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 0.9em;
-    margin-right: 10px;
-  }
 
+  background-color: #f0f0f0;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.9em;
+margin-top: 0px;
+  text-align: start;
+  width: 30%;
+}
+.proddet {
+    color: #0056b3;
+}
   .ProductDetails {
     margin-top: 20px;
     padding: 15px;
@@ -122,14 +133,24 @@
             <p className="blue">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Delectus officiis totam adipisci inventore obcaecati cupiditate?</p>
 
             <p className="darkblue">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Assumenda suscipit sit doloremque porro cum illum veritatis obcaecati ipsa culpa nostrum.</p>
-            
-            <div>
-                <h2 className="features">Features</h2>
-              <p> <pre>Chronograpah</pre>                                 <pre>Anti-Magnetic</pre></p> 
-              <p> <pre>Master Chronometer</pre>                          <pre>Cromozomes</pre></p>
-              <p> <pre>Taxhymeter</pre>                                 <pre> Jai Shree RAM </pre></p>  
+            <h2 className="features">Features</h2>
+            <div  className="featuresDetails">
+              
+                <div> 
+                    <pre>Chronograpah</pre> 
+                     <pre>Master Chronometer</pre>  
+                        <pre>Taxhymeter</pre>   
+             </div>
+
+                <div> 
+                    <pre>Anti-Magnetic</pre>  
+                     <pre>Cromozomes</pre> 
+                       <pre> Jai Shree RAM </pre>
+                </div>
+             
                 </div>
 <div className="ProductDetails">
+    <h1 className="proddet">Product Details</h1>
     <p> <strong> Between lugs: </strong>  20 mm </p>
     <p> <strong> Bracelet:</strong> leather strap</p>
     <p> <strong>Case:</strong> Steel</p>
