@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSX and Babel</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      // Your JSX code here
+      //   When using Babel to compile JSX, you need to wrap your JSX code in a function,
+      //   typically an immediately invoked function expression (IIFE).
+      //   This is because Babel will compile your JSX code into JavaScript,
+      //   and you need to ensure that the compiled code is executed correctly.
+      // Thats why i am using IIFE
+      (() => {
+        //   let check = true;
+        let check = false;
+        let element = <p> Seize The day !! </p>;
+        let root = document.getElementById("root");
+        let reactroot = ReactDOM.createRoot(root);
+
+        if (check) {
+          reactroot.render(element);
+        } else {
+          reactroot.render(<p> Failed to Seize The day !! </p>);
+        }
+      })();
+    </script>
+  </body>
+</html>
+
+
+
+
+
+
+<!-- using jsx and bible  -->
+ 

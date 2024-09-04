@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>JSX and Babel</title>
+
+    <style>
+        .box {
+        background-color: #f0f0f0;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 60%;
+        margin: auto;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      h1 {
+        font-family: sans-serif;
+        color: blue;
+      }
+      p {
+        font-family: sans-serif;
+        color: gray;
+      }
+      input {
+        padding: 10px 5px;
+        border-radius: 5px;
+      }
+      button {
+        padding: 10px 5px;
+        border-radius: 7px;
+        border: none;
+        color: white;
+        background-color: teal ;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+            // Your JSX code here
+      (()=> {
+
+        // giving styles for input area and button
+          let subscribe = {
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '10px',
+        gap:'10px',
+      };
+// creating ui component that i want to diolay all styles is done in upper part  in style section for all the elements
+          let MyUI = () => {
+              return (
+                  <>
+                  <div className="box" >
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQHzMH7BWbJhrleb_YXSMcmzml7yvz4v6zdzQ&s" alt="image"/>
+              <h1>SUBSCRIBE</h1>
+              <p>Subscribe to Our NewsLetter & stay Up To Date !</p>
+
+              <div style={subscribe}>
+                <input type="text" placeholder="enter email here" required />
+            
+                 <button onClick={aler}>Click here to subscribe</button>  
+                   
+                 
+                 </div>
+                </div>
+      </>
+
+              ); }
+
+    // here is the contional statment foir the button 
+    // if email area is empty it will show enter email 
+function aler() {
+    let inputval = document.querySelector('input').value ;
+    if (inputval) {
+        alert("You have subscribed successfully");
+    }else {
+        alert("Please enter your email To Subscribe");
+    }
+}
+
+// here i am createting reactRoot by simple sdteps 
+// i am getting root id from the body 
+// then converting it intop the ReactRoot 
+// then i am rendering the ui component
+              let root = ReactDOM.createRoot(document.getElementById('root'));
+              root.render(<MyUI />)
+      })();
+    </script>
+  </body>
+</html>
