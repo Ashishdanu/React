@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Components in React</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+      /* For 13-inch laptops */
+@media only screen and (min-width: 1280px) and (max-width: 1366px) {
+  /* styles here */
+  .container {
+        width: 100%;
+        margin: auto;
+        padding: 20px;
+      }
+}
+
+/* For 15-inch laptops */
+@media only screen and (min-width: 1366px) and (max-width: 1440px) {
+  /* styles here */
+  .container {
+        width: 100%;
+        margin: auto;
+        padding: 20px;
+      }
+}
+
+/* For 17-inch laptops */
+@media only screen and (min-width: 1600px) and (max-width: 1920px) {
+  /* styles here */
+  .container {
+        width: 100%;
+        margin: auto;
+        padding: 20px;
+      }
+}
+      /* .container {
+        width: 1248px;
+        margin: auto;
+        background-color: antiquewhite;
+      } */
+      .NavBar {
+  background-color: #e5e5e5;
+  color: white; /* Changed 'columns' to 'color' */
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1em; /* Added padding for better spacing */
+  align-items: center; /* Added to vertically center content */
+}
+
+.NavBar img {
+  width: 200px;
+  height: auto; /* Added to maintain aspect ratio */
+  margin-right: 1em; /* Added to create some space between logo and nav links */
+}
+
+.navlinks {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center; /* Added to vertically center nav links */
+}
+
+.navlinks a {
+  text-decoration: none; /* Changed 'font-style' to 'text-decoration' */
+  color: inherit; /* Added to inherit color from parent element */
+  font-size: 1.2em; /* Added to increase font size */
+  padding: 0.5em; /* Added to create some space around links */
+}
+
+/* Added media query to make nav bar responsive */
+@media only screen and (max-width: 768px) {
+  .NavBar {
+    flex-direction: column;
+    align-items: center;
+  }
+  .navlinks {
+    width: 100%;
+    flex-direction: column;
+  }
+  .navlinks a {
+    margin-bottom: 1em;
+  }
+}
+      .Header {
+        margin: auto;
+        display: block;
+        text-align: center;
+       
+      }
+      #headimg {
+        width: 100%;
+        display: block;
+        margin: auto;
+      }
+      .SignUp {
+        background-color: #4c54af;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 24px 2px;
+        cursor: pointer;
+      }
+
+      /* 2nd part css  */
+      .Section1 {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        padding: 20px;
+      }
+      #Section1left {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        /* align-items: center; */
+        justify-content: space-between;
+        margin: 0;
+        padding: 10px;
+        text-align: left;
+      
+      }
+      #Section1right {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        margin: 0;
+        padding: 10px;
+      }
+
+      #Section1right img {
+        width: 100%;
+        height: auto;
+      }
+      #Section1right #righttext {
+        display: flex;
+        justify-content: center;
+        gap: 50px;
+      }
+
+      /* for mobile responsive  */
+      @media (max-width: 768px) {
+        #Section1right {
+          width: 100%;
+          order: 2;
+          padding: 20px;
+        }
+        #Section1left {
+          width: 100%;
+          order: 1;
+          padding: 20px;
+        }
+      }
+
+      /* investors  */
+      .Section2 {
+        margin-top: 50px;
+        width: 100%;
+      }
+      .Section2 img {
+        width: 55%;
+        display: block;
+        padding: 20px;
+        margin: auto;
+      }
+
+      /* section3  */
+
+      .Section3 {
+        width: 100%;
+        margin-top: 50px;
+        display: flex;
+        padding: 20px;
+        flex-wrap: wrap;
+       
+
+      } 
+      .Section3  .Section3Left {
+        width: 50%;
+        padding: 10px;
+      } 
+      .Section3  .Section3Right {
+        padding: 10px;
+        width: 50%;
+        display: flex;
+      } 
+      .Section3  .Section3Right .boxes {
+        display: flex;
+        align-items: center;
+      }
+      .Section3  .Section3Right .boxes strong {
+        font-size: 10px;
+        text-align:left;
+        margin-top: 20px;
+        padding: 0;
+      }
+      .Section3  .Section3Right img {
+       width: 120px;
+        height: 88px;
+      }
+      @media (max-width: 768px) {
+        .Section3 .Section3Right {
+          width: 100%;
+          order: 2;
+          padding: 20px;
+          display: flex;
+          flex-direction: column;
+        }
+        .Section3 .Section3Left {
+          width: 100%;
+          order: 1;
+        }
+      }
+
+      /* section4  */
+
+      .Section4 {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 50px;
+        
+      }
+      .Section4 .Section4Left {
+        padding: 10px;
+        width: 50%;
+      }
+      .Section4 .Section4Left img {
+        width: 85%;
+        display: block;
+        margin: auto;
+      }
+      .Section4 .Section4Right {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 10px;
+
+      }
+      @media (max-width: 768px) {
+        .Section4 .Section4Right {
+          width: 100%;
+          order: 2;
+          padding: 20px;
+        }
+        .Section4 .Section4Left {
+          width: 100%;
+          order: 1;
+        }
+      }
+
+      .Section5 {
+        width: 100%;
+        text-align: center;
+
+      }
+      .Section5  button {
+        background-color: #3364b8;
+        color: white;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      // Write your code here
+
+      const MyDOM = () => {
+        return (
+          <div className="container">
+            <Main>
+
+                <Nav
+                src="https://zerodha.com/static/images/logo.svg"
+                about="./about.html"
+                />
+              <Head
+                src="https://zerodha.com/static/images/landing.png"
+                SignUp="Sign up For Free"
+              />
+
+              <Section1
+                title="Trust with Confidence"
+                heading1="Custoner First Always"
+                Content1="That's why 1.5+ crore customers trust Zerodha with *4.5+
+                lakh crores of equity investments and contribute to 15% of daily
+                 retail exchange volumes in India."
+                heading2="No spam or gimmicks"
+                Content2={`No gimmicks, spam, "gamification", or annoying push notifications. High quality apps that you use at your pace, the way you like.`}
+                heading3="The Zerodha universe"
+                Content3="Not just an app, but a whole ecosystem. Our investments in 30+ fintech
+                  startups offer you tailored services specific to your needs."
+                heading4="Do better with money"
+                Content4="With initiatives like Nudge and Kill Switch,
+                  we don't just facilitate transactions,
+                   but actively help you do better with your money"
+                src="https://zerodha.com/static/images/ecosystem.png"
+                explore="Explore our products"
+                tryy="Try Kite Demo"
+                src2="https://zerodha.com/static/images/press-logos.png"
+              />
+
+              <Section2 src="https://zerodha.com/static/images/press-logos.png" />
+
+              <Section3
+                title="Unbeatable Pricing"
+                Content="We pioneered the concept of discount broking and price transparency in India. Flat fees and no hidden charges."
+                Pricing="See Pricing -"
+                src1="https://zerodha.com/static/images/pricing-eq.svg"
+                strong1="Free account Opening"
+                src2="https://zerodha.com/static/images/pricing-eq.svg"
+                strong2="Free Equity Delivery And direct Mutual funds"
+                src3="https://zerodha.com/static/images/other-trades.svg"
+                strong3="IntraDay And F&O"
+              />
+
+
+              <Section4 
+              src="https://zerodha.com/static/images/index-education.svg"
+
+              title="Free And Open Market Education"
+
+              Content1="Varsity, the largest online stock market education book in the world covering everything from the basics to advanced trading."
+
+              anker="Varsity --"
+
+              Content2 = "TradingQ&A, the most active trading and investment community in India for all your market related queries."
+
+              anker2="TradingQ&A --"
+              
+              />
+
+              <Section5
+              title='Open a Zerodha account'
+              Content='Modern platforms and apps, ₹0 investments, and flat ₹20 intraday and F&O trades.'
+              btn='Sign Up For Free'
+              />
+            </Main>
+          </div>
+        );
+      };
+
+
+      const Nav = ({src,about}) => {
+    return (
+
+    <div className="NavBar">
+<img src={src} alt=""/>
+<div className="navlinks">
+    <a href="#">Home</a>
+    <a href={about}>About</a>
+    <a href="#">Product</a>
+    <a href="#">Pricing</a>
+    <a href="#">Support</a>
+    <a href="#">Contact</a>
+    </div>
+        </div>
+
+    )
+}
+
+
+      const Head = ({ src, SignUp }) => {
+        return (
+          <div className="Header">
+            <img id="headimg" src={src} alt="IMAGE " />
+
+            <div className="textarea">
+              <h1>Investing in Everything</h1>
+              <p>
+                Online platform to invest in stocks, derivatives, mutual funds,
+                ETFs, bonds, and more.
+              </p>
+              <button className="SignUp">{SignUp}</button>
+            </div>
+          </div>
+        );
+      };
+
+      const Section1 = ({
+        title,
+        heading1,
+        Content1,
+        heading2,
+        Content2,
+        heading3,
+        Content3,
+        heading4,
+        Content4,
+        src,
+        explore,
+        tryy,
+      }) => {
+        return (
+          <div className="Section1">
+            <div id="Section1left">
+              <h1>{title}</h1>
+
+              <h3 className="Heading">{heading1}</h3>
+              <p className="Content"> {Content1}</p>
+              <h3 className="Heading">{heading2}</h3>
+              <p className="Content"> {Content2}</p>
+              <h3 className="Heading">{heading3}</h3>
+              <p className="Content"> {Content3}</p>
+              <h3 className="Heading">{heading4}</h3>
+              <p className="Content"> {Content4}</p>
+            </div>
+
+            <div id="Section1right">
+              <img src={src} alt="" />
+              <div id="righttext">
+                <span>{explore}</span> <span> {tryy} </span>
+              </div>
+            </div>
+          </div>
+        );
+      };
+
+      const Section2 = ({ src }) => {
+        return (
+          <div className="Section2">
+            <img src={src} alt="investors" />
+          </div>
+        );
+      };
+
+      const Section3 = ({
+        title,
+        Content,
+        Pricing,
+        src1,
+        src2,
+        src3,
+        strong1,
+        strong2,
+        strong3,
+      }) => {
+        return (
+          <div className="Section3">
+            <div className="Section3Left">
+              <h1>{title}</h1>
+              <p>{Content}</p>
+              <a href="./index.html">{Pricing}</a>
+            </div>
+
+            <div className="Section3Right">
+              <div className="boxes">
+                <img src={src1} alt="" />
+                <strong>{strong1}</strong>
+              </div>
+              <div className="boxes">
+                <img src={src2} alt="" />
+                <strong>{strong2}</strong>
+              </div>
+              <div className="boxes">
+                <img src={src3} alt="" />
+                <strong>{strong3}</strong>
+              </div>
+            </div>
+          </div>
+        );
+      };
+
+      const Section4 = ({src , title , Content1 , anker ,Content2 , anker2}) => {
+        return (
+            <div className="Section4">
+
+<div className="Section4Left">
+    <img src={src} alt="image_left"/>
+    </div>
+<div className="Section4Right">
+    <h1>{title}</h1>
+    <p>{Content1}</p>
+    <a href="./index.html">{anker}</a>
+    <p>{Content2}</p>
+    <a href="./index.html">{anker2}</a>
+    </div>
+  
+
+                </div>
+
+        )
+      }
+
+
+
+      const Section5 = ({title ,Content , btn}) => {
+        return (
+            <div className="Section5">
+                <h1>{title}</h1>
+                <p>{Content}</p>
+                <button>{btn}</button>
+
+
+                </div>
+
+
+
+        )
+      }
+      const Main = ({ children }) => {
+        return <div>{children}</div>;
+      };
+
+      let root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<MyDOM />);
+    </script>
+  </body>
+</html>

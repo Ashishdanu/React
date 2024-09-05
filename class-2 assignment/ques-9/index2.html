@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Components in React</title>
+    <style>
+          * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+      }
+
+      .container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+      }
+
+      span {
+  font-weight: bold;
+  text-decoration: underline;
+  text-decoration-color: #4CAF50;
+  text-decoration-thickness: 7px;
+  color: #4CAF50; 
+  font-size: 44px;
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+
+      .data {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+
+      .column {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        flex: 1 1 300px;
+        max-width: 300px;
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+      }
+      .column:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+  background-color: #f9f9f9;
+  border-radius: 12px;
+}
+      .column strong {
+        display: inline-block;
+        background-color: rgb(197, 109, 124);
+        padding: 5px 10px;
+        border-radius: 20%;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: white;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      p {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      // Write your code here
+
+      const MyUI = () => {
+        return (
+          <div className="container">
+
+            <h1> Getting Started in <span>3 Easy steps</span></h1>
+            <Data>
+              <Cards
+                id="1"
+                title=" Find YOUR Tempelate"
+                description=" Every template is embedded within an iframe, so you can easily
+                    check what they look like and test the responsive behaviour."
+              />
+
+              <Cards
+                id="2"
+                title="Copy The Code"
+                description="Click the code tab to see the actual source code of the
+                  template. Copy and paste it into your project and adjust it to
+                  your needs.."
+              />
+              <Cards
+                id="3"
+                title="Enjoy Your Free Time"
+                description="  You've just saved yourself a bunch of time not building the
+                  same stuff over and over again. Enjoy your free time, and
+                  build business features."
+              />
+            </Data>
+          </div>
+        );
+      };
+
+      const Cards = ({ id, title, description }) => {
+        return (
+       
+            <div className="column">
+                <strong>{id}</strong>
+                <h2>{title}</h2>
+                <p>{description}</p>
+                </div>
+
+
+            );
+      };
+
+      const Data = ({ children }) => {
+        return <div className="data">{children}</div>;
+      };
+
+    let root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<MyUI />);
+    </script>
+  </body>
+</html>

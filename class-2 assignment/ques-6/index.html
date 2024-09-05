@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Greeting Component</title>
+
+    <style>
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            background-color: pink;
+            text-align: center;
+        }
+        .text {
+            text-align: center;
+            color: rgb(143, 57, 57);
+            margin: 10px 0;
+            background-color: rgba(9, 40, 40, 0.152);
+        }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your Greeting component code will go here
+    const Greeting = () => {
+      return (
+        <div className="container">
+          <h1> Greeting </h1>
+
+          <Greet
+            storage={
+              <>
+                <Message message=" hello" name="Ashish Ji" />
+                <Message message=" hello" name="Moto Ji" />
+              </>
+            }
+          />
+        </div>
+      );
+    };
+
+    const Message = ({ message, name }) => {
+      return (
+        <div className="text">
+          <p>
+            {message} {name}
+          </p>
+        </div>
+      );
+    };
+
+    const Greet = ({ storage }) => {
+      return (
+        <div>
+          <h1> {storage} </h1>
+        </div>
+      );
+    };
+
+    let root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<Greeting />);
+  </script>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic List Rendering</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 40px;
+      }
+
+      .images {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .image {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        width: 100%;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .image:hover {
+        transform: scale(1.05);
+      }
+
+      .image img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+      // Your ItemList component code will go here
+
+      const Display = () => {
+        return (
+          <div className="container">
+            <h1>Our gallery</h1>
+            <Gallery>
+              <Image src="./animewallpaper.jpg" />
+              <Image src="./hanuman-wallpaper.jpg" />
+              <Image src="./nature-mystery-portrayed-tranquil-forest-scene-generative-ai_188544-9755.jpg" />
+            </Gallery>
+          </div>
+        );
+      };
+
+      const Image = ({ src }) => {
+        return (
+          <div className="image">
+            <img src={src} alt="Images" />
+          </div>
+        );
+      };
+
+      function Gallery({ children }) {
+        return <div className="images">{children}</div>;
+      }
+      let root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<Display />);
+    </script>
+  </body>
+</html>
