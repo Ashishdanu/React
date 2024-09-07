@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Fun</title>
+    <style>
+      /* Basic styling for the quiz */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .QuizBody {
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 600px;
+        text-align: center;
+      }
+
+      h2 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 18px;
+        margin: 10px 0;
+      }
+
+      label {
+        display: block;
+        margin: 5px 0;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      input[type="radio"] {
+        margin-right: 10px;
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      h1 {
+        color: #28a745;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+
+    // Main Quiz component
+    const Quiz = () => {
+      // Array of questions, each containing a question, options, and the correct answer
+      const questions = [
+        {
+          question: "What is the capital of France?",
+          options: ["Berlin", "Madrid", "Paris", "Rome"],
+          correctAnswer: "Paris",
+        },
+        {
+          question: "What is 2 + 2?",
+          options: ["3", "4", "5", "6"],
+          correctAnswer: "4",
+        },
+        {
+          question: 'Who wrote "To Kill a Mockingbird"?',
+          options: [
+            "Harper Lee",
+            "J.K. Rowling",
+            "Ernest Hemingway",
+            "Mark Twain",
+          ],
+          correctAnswer: "Harper Lee",
+        },
+      ];
+
+      // State to track the user's score, initially null (quiz not submitted)
+      const [score, setScore] = useState(null);
+
+      // State to track the selected answers for each question
+      const [Selected, setSelected] = useState(Array(questions.length).fill(""));
+
+      // Function to handle option selection
+      const handleOption = (qindex, option) => {
+        // Create a copy of the selected answers array and update the answer for the current question
+        let selectedoptions = [...Selected];
+        selectedoptions[qindex] = option;
+        setSelected(selectedoptions);
+      };
+
+      // Function to handle form submission
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        let count = 0;
+        // Iterate over each question and compare selected answers with correct answers
+        questions.forEach((question, index) => {
+          if (question.correctAnswer === Selected[index]) {
+            count++;
+          }
+        });
+        // Update the score state with the total correct answers
+        setScore(count);
+      };
+
+      // Function to reset the quiz
+      const resetQuiz = () => {
+        setSelected(Array(questions.length).fill("")); // Reset all selected answers to empty
+        setScore(null); // Reset score to null to show the quiz again
+      };
+
+      return (
+        <div className="QuizBody">
+          <h2>Quiz Fun</h2>
+
+          {/* Display the quiz form if the score is null, otherwise display the score */}
+          {score === null ? (
+            <form onSubmit={handleSubmit}>
+              {/* Map through each question and render it */}
+              {questions.map((question, qindex) => {
+                return (
+                  <div key={qindex}>
+                    <p>{question.question}</p>
+
+                    {/* Map through each option and render the radio buttons */}
+                    {question.options.map((option) => {
+                      return (
+                        <label key={option}>
+                          {/* Radio input to select an option */}
+                          <input
+                            type="radio"
+                            name={`Question-${qindex}`} // Group radio buttons by question index
+                            value={option}
+                            checked={Selected[qindex] === option} // Check if the option is selected
+                            onChange={() => handleOption(qindex, option)} // Handle option change
+                          />
+                          {option}
+                        </label>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+              <button type="submit">Submit</button>
+            </form>
+          ) : (
+            <>
+              {/* Display the score after quiz submission */}
+              <h1>
+                Your score: {score} / {questions.length}
+              </h1>
+              <button onClick={resetQuiz}>Reset Quiz</button>
+            </>
+          )}
+        </div>
+      );
+    };
+
+    // Render the Quiz component
+    ReactDOM.createRoot(document.getElementById("root")).render(<Quiz />);
+  </script>
+</html>

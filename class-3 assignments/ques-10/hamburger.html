@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hamburger Menu</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #333;
+        }
+        li {
+            list-style: none;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+        }
+        .navbar {
+            min-height: 70px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 24px;
+        }
+
+        .nav_menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .brand {
+            font-size: 2rem;
+        }
+        li a {
+            transition: 0.7s ease;
+        }
+        li a:hover {
+            color: #0e1ad0;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px auto;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav_menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                gap: 0;
+                flex-direction: column;
+                background-color: #c6c2c2;
+                padding: 20px;
+                width: 100%;
+                transition: 0.3s;
+                text-align: center;
+                z-index: 1000; /* Ensure it appears above other content */
+            }
+            .nav_item {
+                margin: 16px 0;
+            }
+
+            .nav_menu.active {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="#" class="brand">logo</a>
+
+            <ul class="nav_menu">
+                <li class="nav_item"><a href="#">Home</a></li>
+                <li class="nav_item"><a href="#">Contact</a></li>
+                <li class="nav_item"><a href="#">Products</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </nav>
+    </header>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav_menu');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Fixing selector and adding click event to close menu when a link is clicked
+        const navLinks = document.querySelectorAll('.nav_menu a');
+        navLinks.forEach(link => link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        }));
+    </script>
+</body>
+</html>

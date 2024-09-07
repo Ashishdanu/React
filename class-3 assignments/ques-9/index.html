@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo</title>
+    <style>
+      .Todos {
+        display: block;
+        margin: auto;
+        width: 50%;
+        background-color: #f0f0f0;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: Arial, sans-serif;
+      }
+      .Todos h1 {
+        text-align: center;
+      }
+      .todo-item {
+        display: flex;
+        justify-content: space-between;
+        background-color: #ffffff;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+      .todo-item button {
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .todo-item button:hover {
+        background-color: #c82333;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Main Todo component
+    const Todo = () => {
+      // State to hold list of todos
+      const [todos, setTodos] = React.useState([]);
+      // State for the input value of new todo
+      const [newTodo, setNewTodo] = React.useState("");
+      // State for the status of the todo (pending or complete)
+      const [status, setStatus] = React.useState("");
+
+      // Function to handle adding a new todo
+      const addTodo = (e) => {
+        e.preventDefault();
+
+        // Prevent adding empty todos or if no status is selected
+        if (newTodo.trim() !== "" && status) {
+          // Add new todo object to the todos list
+          setTodos([
+            ...todos,
+            {
+              id: todos.length + 1,
+              text: newTodo,
+              completed: status === "complete",
+            },
+          ]);
+          // Clear the input field and reset status
+          setNewTodo("");
+          setStatus("");
+        } else {
+          alert("Please enter a todo and select a status");
+        }
+      };
+
+      // Function to handle removing a todo by its id
+      const removeTodo = (id) => {
+        // Filter out the todo with the specified id
+        setTodos(todos.filter((todo) => todo.id !== id));
+      };
+
+      return (
+        <div className="Todos">
+          <h1>Todos</h1>
+          {/* Form to add a new todo */}
+          <form onSubmit={addTodo}>
+            <input
+              type="text"
+              value={newTodo}
+              onChange={(e) => setNewTodo(e.target.value)}
+              placeholder="Enter a new task..."
+            />
+
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              required>
+              <option value="">Select Status</option>
+              <option value="pending">Pending</option>
+              <option value="complete">Complete</option>
+            </select>
+            <button type="submit">Add Todo</button>
+          </form>
+
+          {/* Displaying the list of todos */}
+          <ul>
+            {todos.map((todo) => (
+              <li key={todo.id} className="todo-item">
+                <span>
+                  {todo.text} - {todo.completed ? "Complete" : "Pending"}
+                </span>
+                <button onClick={() => removeTodo(todo.id)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    };
+
+    // Render the Todo component to the root
+    ReactDOM.createRoot(document.getElementById("root")).render(<Todo />);
+  </script>
+</html>

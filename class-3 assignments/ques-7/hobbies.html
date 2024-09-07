@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hobby</title>
+    <style>
+        /* Global styles */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+}
+
+/* Form styles */
+
+.Form {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Form button[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.Form button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+/* Hobby input field styles */
+
+.hobby {
+  margin-bottom: 20px;
+}
+
+.hobby input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.hobby button[type="button"] {
+  background-color: #ff69b4;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hobby button[type="button"]:hover {
+  background-color: #ff7f9f;
+}
+
+/* Add New Hobby button styles */
+
+button[onClick="AddHobbyFields"] {
+  background-color: #337ab7;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button[onClick="AddHobbyFields"]:hover {
+  background-color: #23527c;
+}
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your  code will go here
+        // Importing useState from React
+        const { useState } = React;
+
+    const App = () => {
+      const [hobbies, setHobbies] = useState([" "]);
+
+      const AddHobbyFields = () => {
+        setHobbies([...hobbies, " "]);
+      };
+
+      const handleHobbyChange = (index, value) => {
+        let UpdatedHobbby = [...hobbies];
+        UpdatedHobbby[index] = value;
+        setHobbies(UpdatedHobbby);
+      };
+
+      const deleteHobby = (index) => {
+        let UpdatedHobbies = [...hobbies];
+        UpdatedHobbies.splice(index, 1);
+        setHobbies(UpdatedHobbies);
+      };
+
+      const preventFromDefault = (event) => {
+        event.preventDefault();
+        console.log("Your Hobbies" , hobbies);
+      };
+
+      return (
+        <form className="Form" onSubmit={preventFromDefault}>
+          {hobbies.map((hobby, index) => {
+            return (
+              <div className="hobby" key={`hobby- ${index}` }>
+                <input
+                  type="text"
+                  value={hobby}
+                  placeholder={`hobby ${index + 1}`}
+                  onChange={(event) => {
+                    handleHobbyChange(index, event.target.value);
+                  }}
+                />
+                 {index >0 && (<button onClick={() => deleteHobby(index)}> remove</button>)}
+              </div>
+            );
+          })}
+
+          <button onClick={AddHobbyFields}>Add New Hobby</button>
+          <button type="submit">Submit Hobbies</button>
+        </form>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</html>

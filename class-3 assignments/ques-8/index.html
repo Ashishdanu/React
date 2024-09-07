@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+    <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+      const { useState } = React;
+
+      function Quiz() {
+        const questions = [
+          {
+            question: "What is the capital of France?",
+            options: ["Berlin", "Madrid", "Paris", "Rome"],
+            correctAnswer: "Paris",
+          },
+          {
+            question: "What is 2 + 2?",
+            options: ["3", "4", "5", "6"],
+            correctAnswer: "4",
+          },
+          {
+            question: 'Who wrote "To Kill a Mockingbird"?',
+            options: [
+              "Harper Lee",
+              "J.K. Rowling",
+              "Ernest Hemingway",
+              "Mark Twain",
+            ],
+            correctAnswer: "Harper Lee",
+          },
+        ];
+
+        const [selectedAnswers, setSelectedAnswers] = useState(
+          Array(questions.length).fill("")
+        );
+        console.log(selectedAnswers)
+        const [score, setScore] = useState(null);
+
+        const handleAnswerChange = (index, answer) => {
+          const updatedAnswers = [...selectedAnswers];
+          updatedAnswers[index] = answer;
+          setSelectedAnswers(updatedAnswers);
+        };
+
+        const handleSubmit = (e) => {
+          e.preventDefault();
+          let calculatedScore = 0;
+          questions.forEach((question, index) => {
+            if (selectedAnswers[index] === question.correctAnswer) {
+              calculatedScore += 1;
+            }
+          });
+          setScore(calculatedScore);
+        };
+
+        const restartQuiz = () => {
+          setSelectedAnswers(Array(questions.length).fill(""));
+          setScore(null);
+        };
+
+        return (
+          <div>
+            <h1>Quiz App</h1>
+            {score === null ? (
+              <form onSubmit={handleSubmit}>
+
+                {questions.map((question, index) => (
+
+                  <div key={index}>
+
+                    <h3>{question.question}</h3>
+
+                    {question.options.map((option) => (
+
+                      <label key={option}>
+
+                        <input
+                          type="radio"
+                          name={`question-${index}`}
+                          value={option}
+                          checked={selectedAnswers[index] === option}
+                          onChange={() => handleAnswerChange(index, option)}
+                        />
+
+                        {option}
+                      </label>
+                    ))}
+                  </div>
+                ))}
+                <button type="submit">Submit Quiz</button>
+              </form>
+            ) : (
+              <div>
+                <h2>
+                  Your Score: {score} / {questions.length}
+                </h2>
+                <button onClick={restartQuiz}>Restart Quiz</button>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      function App() {
+        return (
+          <div>
+            <Quiz />
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+  </body>
+</html>
