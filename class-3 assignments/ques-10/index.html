@@ -1,117 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chaddi Factory</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-      }
-
-      .nav_bar {
-        display: flex;
-        justify-content: space-around;
-        background-color: #333;
-        padding: 10px;
-        list-style: none;
-        align-items: center;
-      }
-
-      .nav_bar li {
-        color: white;
-        cursor: pointer;
-      }
-
-      .nav_bar .menu-item {
-        display: none; /* Hide all items except Home */
-      }
-
-      .hamburger {
-        display: none;
-        flex-direction: column;
-        cursor: pointer;
-      }
-
-      .hamburger div {
-        width: 25px;
-        height: 3px;
-        background-color: white;
-        margin: 4px 0;
-      }
-
-      .mobile_menu {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 50px;
-        left: 0;
-        background-color: #333;
-        width: 100%;
-        padding: 10px 0;
-        z-index: 1;
-      }
-
-      .mobile_menu li {
-        color: white;
-        padding: 10px 20px;
-        border-bottom: 1px solid #444;
-      }
-
-      .card {
-        width: 200px;
-        height: 200px;
-        background-color: teal;
-        color: white;
-        margin: 10px;
-        padding: 10px;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-
-      .text {
-        background-color: rgb(136, 255, 215);
-        padding: 10px;
-        text-align: center;
-        border-radius: 4px;
-      }
-
-      .Gallery {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        padding: 20px;
-      }
-
-      /* Media query for mobile and tablets */
-      @media (max-width: 768px) {
-        .nav_bar {
-          justify-content: space-between;
-         
+        /* General resets and box-sizing for consistency */
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif
         }
 
-        .nav_bar .menu-item {
-          display: none;
+        /* Header styling */
+        header {
+            background-color: #333;
         }
 
+        /* Styling for list items */
+        li {
+            list-style: none;
+        }
+
+        /* Styling for anchor tags */
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Navbar container styling */
+        .navbar {
+            min-height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 24px;
+        }
+
+        /* Navigation menu styling */
+        .nav_menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 150px;
+        }
+
+        /* Brand styling */
+        .brand {
+            font-size: 2rem;
+        }
+
+        /* Link hover effect */
+        li a {
+            transition: 0.7s ease;
+        }
+        li a:hover {
+            color: #0e1ad0;
+        }
+
+        /* Hamburger icon styling */
         .hamburger {
-          display: flex;
-          flex-direction: column;
+            display: none;
+            cursor: pointer;
+        }
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: white;
+            margin: 5px auto;
+            transition: 0.3s;
         }
 
-        .mobile_menu.show {
-          display: flex;
-          flex-direction: column;
-         
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0; /* Hide the middle bar */
+            }
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg); /* Rotate top bar */
+            }
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg); /* Rotate bottom bar */
+            }
+
+            .nav_menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                gap: 0;
+                flex-direction: column;
+                background-color: #c6c2c2;
+                padding: 20px;
+                width: 100%;
+                transition: 0.3s;
+                text-align: center;
+                z-index: 1000; /* Ensure it appears above other content */
+            }
+            .nav_item {
+                margin: 16px 0;
+            }
+
+            .nav_menu.active {
+                left: 0; /* Slide menu into view */
+            }
         }
-      }
+
+        .Gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        
+        }
+
+        .card {
+  width: 250px;
+  height: 400px;
+  margin: 20px;
+  background-color:teal ;
+  text-align: center;
+  color: whitesmoke;
+  border-radius: 10px; /* added rounded corners */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* added subtle shadow */
+  transition: transform 0.3s; /* added transition for hover effect */
+}
+
+.card:hover {
+  transform: scale(1.05); /* added hover effect to scale up the card */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* added more prominent shadow on hover */
+}
+
+.card .text {
+  width: 100%;
+  height: 70%;
+  background-color: #333; /* changed to a darker gray */
+  padding: 20px; /* added padding for better text readability */
+  font-size: 18px; /* added font size for better text readability */
+  font-weight: 500; /* added font weight for better text readability */
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card .text:hover {
+  background-color: #444; /* added hover effect to change text background color */
+}
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div id="root"></div>
     <script src="https://kit.fontawesome.com/14dc840376.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/react@18.2.0/umd/react.production.min.js"></script>
@@ -119,63 +160,77 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel">
-      const { useState } = React;
+        const { useState } = React;
 
-      const App = () => {
-        return (
-          <Wrap>
-            <Nav />
-            <div className="Gallery">
-              {/* Render multiple cards */}
-              {Array.from({ length: 10 }, (_, i) => (
-                <Card key={i} index={i} />
-              ))}
-            </div>
-          </Wrap>
-        );
-      };
-
-      const Nav = () => {
-        const [menuOpen, setMenuOpen] = useState(false);
-
-        const toggleMenu = () => {
-          setMenuOpen(!menuOpen);
+        // Main App component
+        const App = () => {
+            return (
+                <Wrap>
+                    <Nav />
+                    <div className="Gallery">
+                        {/* Render multiple cards */}
+                        {Array.from({ length: 10 }, (_, i) => (
+                            <Card key={i} index={i} />
+                        ))}
+                    </div>
+                </Wrap>
+            );
         };
 
-        return (
-          <>
-            {/* Desktop and initial Mobile Navigation */}
-            <ul className="nav_bar">
-              <li>Home</li>
-              <li className="menu-item" style={{ display: menuOpen ? 'block' : 'none' }}>Gallery</li>
-              <li className="menu-item" style={{ display: menuOpen ? 'block' : 'none' }}>Contact</li>
-              <li className="menu-item" style={{ display: menuOpen ? 'block' : 'none' }}>About</li>
-              {}
-              <div className="hamburger" onClick={toggleMenu}>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </ul>
-          </>
-        );
-      };
+        // Navigation component
+        const Nav = () => {
+            // State to manage menu visibility
+            const [menuOpen, setMenuOpen] = useState(false);
 
-      const Card = ({ index }) => {
-        return (
-          <div className="card">
-            <div className="text">100 * 100</div>
-            <h1>Random title - {index + 1}</h1>
-            <p>{`$${(Math.random() * 100).toFixed(2)}`}</p>
-          </div>
-        );
-      };
+            // Toggle menu open/close
+            const handleHamburgerClick = () => {
+                setMenuOpen(!menuOpen);
+            };
 
-      const Wrap = ({ children }) => {
-        return <div>{children}</div>;
-      };
+            // Close menu when a link is clicked
+            const handleLinkClick = () => {
+                setMenuOpen(false);
+            };
 
-      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+            return (
+                <>
+                    <header>
+                        <nav className="navbar">
+                            <a href="#" className="brand">logo</a>
+                            <ul className={`nav_menu ${menuOpen ? 'active' : ''}`}>
+                                <li className="nav_item"><a href="#" onClick={handleLinkClick}>Home</a></li>
+                                <li className="nav_item"><a href="#" onClick={handleLinkClick}>Contact</a></li>
+                                <li className="nav_item"><a href="#" onClick={handleLinkClick}>Products</a></li>
+                            </ul>
+                            <div className={`hamburger ${menuOpen ? 'active' : ''}`} onClick={handleHamburgerClick}>
+                                <span className="bar"></span>
+                                <span className="bar"></span>
+                                <span className="bar"></span>
+                            </div>
+                        </nav>
+                    </header>
+                </>
+            );
+        };
+
+        // Card component for gallery items
+        const Card = ({ index }) => {
+            return (
+                <div className="card">
+                    <div className="text">100 * 100</div>
+                    <h1>Random title - {index + 1}</h1>
+                    <p>{`$${(Math.random() * 100).toFixed(2)}`}</p>
+                </div>
+            );
+        };
+
+        // Wrap component to render children
+        const Wrap = ({ children }) => {
+            return <div>{children}</div>;
+        };
+
+        // Render the App component into the root element
+        ReactDOM.createRoot(document.getElementById("root")).render(<App />);
     </script>
-  </body>
+</body>
 </html>
