@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todos CRUD Operations</title>
+  
+    <style>
+        body {
+          font-family: 'Arial', sans-serif;
+          background-color: #f4f4f9;
+          color: #333;
+          margin: 0;
+          padding: 0;
+        }
+      
+        .Form {
+          width: 50%;
+          margin: 20px auto;
+          padding: 20px;
+          text-align: center;
+          border: 1px solid #ccc;
+          border-radius: 10px;
+          background-color: #ffffff;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          transition: box-shadow 0.3s ease-in-out;
+        }
+      
+        .Form:hover {
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+      
+        .header {
+          background-color: #e0e0e0;
+          padding: 10px;
+          border-bottom: 2px solid #d0d0d0;
+          color: #333;
+          font-family: 'Verdana', sans-serif;
+          border-radius: 10px 10px 0 0;
+          margin-bottom: 20px;
+        }
+      
+        #tasks {
+          width: 50%;
+          margin: 20px auto;
+          text-align: center;
+          border: 1px solid #ddd;
+          border-radius: 10px;
+          background-color: #ffffff;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          padding: 10px;
+          transition: box-shadow 0.3s ease-in-out;
+        }
+      
+        #tasks:hover {
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+      
+        .todocard {
+          width: 90%;
+          margin: 10px auto;
+          padding: 15px;
+          border-radius: 10px;
+          background-color: #fafafa;
+          border: 1px solid #ddd;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+      
+        .todocard:hover {
+          background-color: #f0f8ff;
+          transform: scale(1.02);
+        }
+      
+        .todocard h2 {
+          margin: 10px 0;
+          color: #007bff;
+        }
+      
+        .todocard strong {
+          display: block;
+          margin: 5px 0;
+          color: #28a745;
+        }
+      
+        input[type="text"], select, input[type="checkbox"] {
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          padding: 8px;
+          margin: 10px 0;
+          width: calc(100% - 20px);
+          box-sizing: border-box;
+        }
+      
+        button {
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          padding: 10px 20px;
+          cursor: pointer;
+          margin: 5px;
+          transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+      
+        button:hover {
+          background-color: #0056b3;
+          transform: scale(1.05);
+        }
+      
+        button:active {
+          background-color: #003d7a;
+        }
+      
+        select {
+          background-color: #ffffff;
+        }
+      
+        label {
+          display: block;
+          margin: 10px 0;
+          font-weight: bold;
+        }
+      </style>
+      
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const Form = () => {
+      const [todos, setTodos] = useState([]);
+      const [title, setTitle] = useState("");
+      const [status, setStatus] = useState(false);
+      const [assignto, setAssignto] = useState("");
+
+      // useEffect(() => {
+      //     const fetchData = async () => {
+      //         try {
+      //             const response = await axios.get('http://localhost:3001/todos');
+      //             console.log(data)
+      //         }
+      //         catch (error) {
+      //             console.error(error);
+      //         }
+      //     }
+
+      // }, [])
+
+      const HandleTitle = (e) => {
+        let title = e.target.value;
+        setTitle(title);
+      };
+      const HandleAssign = (e) => {
+        let assign = e.target.value;
+        setAssignto(assign);
+      };
+
+      const HandleStatus = (e) => {
+        let status = e.target.checked;
+        setStatus(status);
+      };
+
+      function ResetInput() {
+        setTitle("");
+        setAssignto("");
+        setStatus(false);
+      }
+
+      const SubmitTodo = (e) => {
+        e.preventDefault();
+        let newTask = {
+          title,
+          status,
+          assignto,
+        };
+        axios
+          .post(
+            "https://reacttodos-1a69a-default-rtdb.firebaseio.com/Tasks.json",
+            newTask
+          )
+          .then((res) => {
+            console.log(res.data);
+            Getdata();
+            ResetInput();
+
+            // setTodos([...totos, response.data]);
+            // ResetInput();
+          })
+          .catch((error) => console.log("error posting data", error));
+      };
+
+      async function Getdata() {
+        try {
+          const response = await axios.get(
+            "https://reacttodos-1a69a-default-rtdb.firebaseio.com/Tasks.json"
+          );
+          const data = response.data;
+
+          let Final_data = Object.entries(data).map((ele) => {
+            return {
+              id: ele[0],
+              ...ele[1],
+            };
+          });
+
+          console.log(Final_data);
+          setTodos(Final_data);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      const EditTodo = (id) => {
+  const Todo = todos.find((todo) => todo.id === id);
+  const updatedTitle = prompt("You can change your task", Todo.title);
+  const updatedAssignto = prompt("You can change your assignto", Todo.assignto);
+  
+  if (updatedTitle !== null || updatedAssignto !== null ) {
+    axios.patch(
+      `https://reacttodos-1a69a-default-rtdb.firebaseio.com/Tasks/${id}.json`,
+      { title: updatedTitle ,
+        assignto: updatedAssignto 
+       }
+    )
+    .then((res) => {
+      console.log('Update successful', res.data);
+      Getdata();
+    })
+    .catch((error) => console.log('Error updating data', error));
+  }
+};
+
+
+      const DeleteTodo = (id) => {
+        axios.delete(
+          `https://reacttodos-1a69a-default-rtdb.firebaseio.com/Tasks/${id}.json`
+        );
+        Getdata();
+        fetchData();
+      };
+
+      const fetchData = () => {
+        Getdata();
+      };
+
+      return (
+        <>
+          <form className="Form" onSubmit={SubmitTodo}>
+            <div className="header">
+              <h2>Add Your Taks</h2>
+              <strong>Piyega India Tabhi toh jeeyega India</strong>
+            </div>
+
+            <input
+              placeholder="Enter Task"
+              value={title}
+              type="text"
+              onChange={HandleTitle}
+            />
+
+            <select name="assignto" id="assignto" onChange={HandleAssign}>
+              <option value="#">Assign To</option>
+              <option value="Ashu">Ashu</option>
+              <option value="Dhasu">Dhasu</option>
+              <option value="Komal">Komal</option>
+            </select>
+
+            <label>
+              Complete
+              <input type="checkbox" value={status} onChange={HandleStatus} />
+            </label>
+
+            <button type="submit">Add Task</button>
+          </form>
+
+          <div id="tasks">
+            <div>
+              <button onClick={fetchData} className="fetchData">
+                Show All Taks
+              </button>{" "}
+            </div>
+            {todos.map((todo) => {
+              return (
+                <div key={todo.id} className="todocard">
+                  <h2>{todo.assignto}</h2>
+                  <strong> {todo.status ? "Completed " : " Pending "} </strong>
+                  <h2>{todo.title}</h2>
+
+                  <button onClick={() => EditTodo(todo.id)}> Edit </button>
+                  <button onClick={() => DeleteTodo(todo.id)}>Delete</button>
+                </div>
+              );
+            })}
+          </div>
+        </>
+      );
+    };
+
+    const App = () => {
+      return (
+        <>
+          <h1>Danu Todos</h1>
+          <Form />
+        </>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<Form />);
+  </script>
+</html>

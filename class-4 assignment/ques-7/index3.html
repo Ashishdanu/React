@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todos CRUD Operations</title>
+    <style>
+      #form {
+        width: 60%;
+        border: 1px solid gray;
+        padding: 10px;
+        margin: auto;
+        text-align: center;
+        font-family: sans-serif;
+      }
+      #form h1 {
+        font-family: fantasy;
+        text-shadow: 5px 5px 5px 0 green;
+      }
+      .header {
+        background-color: #f2f2f2;
+        margin-bottom: 20px;
+      }
+      button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      button.edit {
+        background-color: #ff9800;
+      }
+      button.delete {
+        background-color: #f44336;
+      }
+      button:hover {
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const Form = () => {
+      const [todos, setTodos] = useState([]);
+      const [title, setTitle] = useState("");
+      const [status, setStatus] = useState(false);
+      const [assignTo, setAssignTo] = useState("");
+      const [typing, setTyping] = useState(false);
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (title) {
+          const newTodo = { title, status, assignTo };
+          setTodos([...todos, newTodo]);
+          setTitle("");
+          setStatus(false);
+          setAssignTo("");
+        }
+      };
+
+      const handleStatus = (e) => {
+        setStatus(e.target.checked);
+      };
+
+      const handleTitle = (e) => {
+        setTyping(true);
+        setTitle(e.target.value);
+      };
+
+      useEffect(() => {
+        if (typing) {
+          const timeoutId = setTimeout(() => {
+            setTyping(false);
+          }, 500);
+
+          return () => clearTimeout(timeoutId);
+        }
+      }, [title, typing]);
+
+      const handleAssign = (e) => {
+        setAssignTo(e.target.value);
+      };
+
+      const editTodo = (index) => {
+  // Get current values
+  const currentTodo = todos[index];
+
+  // Prompt user for new values with current values as defaults
+  const updatedTitle = prompt("Change task title:", currentTodo.title);
+  const updatedStatus = prompt("Change status (true/false):", currentTodo.status ? 'true' : 'false');
+  const updatedAssignTo = prompt("Change AssignTo:", currentTodo.assignTo);
+
+  // Check if user input is not null and update only if something changed
+  setTodos(todos.map((todo, i) => 
+    i === index
+      ? {
+          ...todo,
+          title: updatedTitle !== null && updatedTitle.trim() !== "" ? updatedTitle : todo.title,
+          status: updatedStatus !== null ? updatedStatus === 'true' : todo.status,
+          assignTo: updatedAssignTo !== null && updatedAssignTo.trim() !== "" ? updatedAssignTo : todo.assignTo
+        }
+      : todo
+  ));
+};
+
+
+      const deleteTodo = (index) => {
+        
+        setTodos(todos.filter((_, i) => i !== index));
+      };
+
+      return (
+        <div id="form">
+          <form onSubmit={handleSubmit}>
+            <div className="header">
+              <h1>Danu Todos</h1>
+              <strong>Complete Your Tasks More Efficiently</strong>
+            </div>
+
+            <input
+              type="text"
+              placeholder="Enter Task"
+              value={title}
+              onChange={handleTitle}
+            />
+
+            <select name="AssignTo" value={assignTo} onChange={handleAssign}>
+              <option value="#">Assign To</option>
+              <option value="ashu">ashu</option>
+              <option value="Dhasu">dhasu</option>
+              <option value="komal">komal</option>
+              <option value="baby">baby</option>
+            </select>
+
+            <label>
+              Completed
+              <input
+                type="checkbox"
+                checked={status}
+                onChange={handleStatus}
+              />
+            </label>
+
+            <button type="submit">Add Task</button>
+          </form>
+
+          <div id="AllTasks">
+            {todos.map((todo, index) => (
+              <div key={index}>
+                <span>{todo.title} ~ {todo.assignTo} ~ {todo.status ? "Completed" : "Pending"}</span>
+                <button className="edit" onClick={() => editTodo(index)}>Edit</button>
+                <button className="delete" onClick={() => deleteTodo(index)}>Delete</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<Form />);
+  </script>
+</html>

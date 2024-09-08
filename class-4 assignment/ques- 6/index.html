@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Template</title>
+    <style>
+.Greetings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.card {
+  width: 190px;
+  height: 150px;
+  margin-top: 20px;
+  background-color: #f1f1f1;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.head {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-family: fantasy;
+    text-decoration: overline;
+    text-shadow: 2px 2px 4px rgba(242, 7, 7, 0.5);
+   background-color: rgb(225, 225, 225);
+   padding: 10px;
+}
+.head:hover > * {
+  transform: translateY(-2px);
+}
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://www.unpkg.com/react@18.2.0/umd/react.development.js"></script>
+  <script src="https://www.unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    // Your  code will go here
+    const { useState } = React
+
+
+
+    const Greetings = () => {
+
+        const [greet , setGreet]= useState([
+        {id:1 , name:"John" , age:25},
+        {id:2 , name:"Jane" , age:30},
+        {id:3 , name:"Bob" , age:35},
+        {id:4 , name:"Alice" , age:40},
+        {id:5 , name:"Mike" , age:45},
+        {id:6 , name:"Emma" , age:50},  
+        {id:7 , name:"Tom" , age:55},
+        {id:8 , name:"Lily" , age:60},
+        {id:9 , name:"Jack" , age:65},
+        
+    ])
+
+
+      return (
+        <>
+        <Greet
+         greetings = {greet} 
+         />
+        </>
+      );
+    };
+    const Greet = ({ greetings }) => {
+      return (
+        <div className="Greetings">
+<div className="head">  <h1>hello EveryOne</h1>
+    <strong>Chai pilo</strong></div>
+          
+          {greetings.map((item) => {
+            return (
+              <div className="card" key={item.id}>
+                <h2>hellow {item.name} </h2>
+                <p>Welcome To Danu World</p>
+              </div>
+            );
+          })}
+        </div>
+      );
+    };
+
+  ReactDOM.createRoot(document.getElementById("root")).render(<Greetings />)
+  </script>
+</html>
