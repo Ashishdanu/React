@@ -1,0 +1,27 @@
+.card {
+    /* Add some basic styling to make it look like a card */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px; /* adjust the width as needed */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ margin: auto;
+  }
+  
+  .card:hover {
+    /* Add a hover effect to make it more interactive */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+    transition: all 0.2s ease-in-out;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 24px;
+    margin: 0;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: black;
+    color: white;
+    
+  }
